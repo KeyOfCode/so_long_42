@@ -1,0 +1,11 @@
+.vscode
+.DS_Store
+*.o
+*.a
+*.sw*
+a.out
+*.dSYM
+/libft42/**/*.o
+/libft42/**/**/*.o
+/libft42/*.a
+/Fdf/resources/
