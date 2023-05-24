@@ -5,10 +5,6 @@
 *.sw*
 a.out
 *.dSYM
-/libft42/**/*.o
-/libft42/**/**/*.o
-/libft42/*.a
-/Fdf/resources/
 /bonus
 so_long_bonus.h
 test.c
