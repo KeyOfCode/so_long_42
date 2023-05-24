@@ -53,7 +53,7 @@ debug: $(LIBFT) $(DEBUG_MLX) clean
 $(NAME): $(LIBFT) $(MINILIBX) clean
 	@$(CC) $(FRAMEWORKS) $(CFLAGS) $(HEADERS) $(SOURCES) -o $(NAME) $(INCLUDES) 
 	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
-	./$(NAME) ./maps/error.ber ./maps/1.ber
+##	./$(NAME) ./maps/error.ber ./maps/1.ber
 
 %.o: %.c
 	@${CC} ${FLAGS}  -o $@ -c $< $(HEADERS)

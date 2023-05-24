@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:51:36 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/24 20:49:46 by darismen         ###   ########.fr       */
+/*   Updated: 2023/05/24 21:30:47 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	ft_error(int type)
 {
-	if (type == 1)
-		ft_putendl_fd("Error \nYou must indicate only one map path!", 2);
 	if (type == 2)
 		ft_putendl_fd("Error \nUnable to open the map!", 2);
 	if (type == 3)

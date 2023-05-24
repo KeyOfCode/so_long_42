@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 19:00:57 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/24 20:28:40 by darismen         ###   ########.fr       */
+/*   Updated: 2023/05/24 21:30:20 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ int	find_player_pos(t_game *game)
 
 int	init_player(t_game *game)
 {
-	game->player->lt = 50;
-	game->player->nl = LIFE;
 	game->img[PLAYER] = mlx_texture_to_image(game->mlx, game->ps[DOWN]);
 	return (find_player_pos(game));
 }
