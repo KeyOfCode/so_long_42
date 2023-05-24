@@ -50,6 +50,11 @@ debug: $(LIBFT) $(DEBUG_MLX) clean
 	@$(CC) -g $(FRAMEWORKS) $(CFLAGS) $(HEADERS) $(SOURCES) -o debug $(INCLUDES)
 	lldb ./debug ./maps/1.ber
 
+push:
+	git add .
+	git commit -m "push"
+	git push origin master
+
 $(NAME): $(LIBFT) $(MINILIBX) clean
 	@$(CC) $(FRAMEWORKS) $(CFLAGS) $(HEADERS) $(SOURCES) -o $(NAME) $(INCLUDES) 
 	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
