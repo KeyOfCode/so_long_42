@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:03:03 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/24 20:38:10 by darismen         ###   ########.fr       */
+/*   Updated: 2023/05/24 21:24:36 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,9 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define PX_SIZE 16
-# define LIFE 16
-
 
 // BPX : bloc px Default is 64
 # define BPX 64
-// MPX : movement px
-# define MPX 8
-// GPX : ground px
-# define GPX 14
-// JPX : jump px
-# define JPX 40
-// HPX : hitbox px
-# define HPX 15
-// EHPX : extra hitbox
-# define EHPX 25
-# define DPX 20
 
 /* -Structs- */
 
