@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:19:18 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/03 22:48:51 by darismen         ###   ########.fr       */
+/*   Updated: 2023/05/24 20:40:56 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ int	open_map(char *relative_path, t_game *game)
 	return (1);
 }
 
-/* Find out what does gw and gh do*/
 int	fill_lst(t_game *game)
 {
 	char	*line;
 
 	line = "";
-	while (game->fd)
+	while (line)
 	{
 		line = get_next_line(game->map_fd);
 		if (line == NULL)
@@ -42,18 +41,25 @@ int	fill_lst(t_game *game)
 				return (0);
 			return (1);
 		}
+		if (game->gw == -1)
+			game->gw = (int)ft_strlen(line) - 1;
+		if (game->lst_map == NULL)
+			game->lst_map = ft_lstnew(line);
+		else
+			ft_lstadd_back(&game->lst_map, ft_lstnew(line));
 	}
+	return (1);
 }
 
-/* 
-gh seems to be the height of the map, independet of the
-Height of the screen. 
-3 lines is the minimum height for a game.
-Allways allocate memory for + 1 to avoid segfaults.
-
-How can game->gh = ft_lstsize(game->lst_map); be valid if I'm 
-parsing the map right now??
-*/
+/**
+ * @brief 
+ * 
+ * @param game_gh	game height, how many cells high is the map. 
+ * @param game_gw	game width, how many cells wide is the map. 
+ * @return	Returns 0 if gw < 4, the minimun space for two walls, 
+ * 			the player, a coin and the gate.
+			Returns 1 otherwise 
+ */
 int	convert_lst(t_game *game)
 {
 	t_list	*lst;
@@ -63,14 +69,14 @@ int	convert_lst(t_game *game)
 	if (game->gh < 3)
 		return (0);
 	game->map = ft_calloc(game->gh + 1, sizeof(char *));
-	if (game->map)
+	if (!game->map)
 		exit(EXIT_FAILURE);
 	lst = game->lst_map;
 	i = 0;
 	while (lst)
 	{
 		game->map[i] = ft_strdup(lst->content);
-		if (game->map[i])
+		if (!game->map[i])
 			exit(EXIT_FAILURE);
 		i++;
 		lst = lst->next;
@@ -81,6 +87,11 @@ int	convert_lst(t_game *game)
 	return (1);
 }
 
+/**
+* @result Returns 0 if i reads more lines that the gh or if the 
+			current line is not equal to gw.
+			It returns 1 if i it's equal to gw - 1 
+ */
 int	size_check(t_game *game)
 {
 	int	i;
@@ -88,7 +99,7 @@ int	size_check(t_game *game)
 	i = 0;
 	while (game->map[i])
 	{
-		if (i < game->gh)
+		if (i > game->gh)
 			return (0);
 		if (i + 1 == game->gh && \
 			(int)ft_strlen(game->map[i]) == game->gw - 1)

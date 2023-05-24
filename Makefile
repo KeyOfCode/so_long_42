@@ -6,7 +6,7 @@ CFLAGS=		-Wall -Wextra -Werror -Wunreachable-code -Ofast
 FRAMEWORKS=	-framework OpenGL -framework AppKit
 INCLUDES=	$(LIBFT) $(MINILIBX)
 
-LIBFT = libft42/libft.a
+LIBFT = libft/libft.a
 MINILIBX = MLX42/libmlx42.a
 
 LIBMLX	:= ./lib/MLX42
@@ -15,9 +15,14 @@ HEADERS	:= -I MLX42/include/MLX42 -lglfw -L /Users/darismen/.brew/opt/glfw/lib/
 
 ############################
 
-SOURCES_LIST =	main.c init.c hooks.c\
+SOURCES_LIST =	core/main.c core/init.c core/hooks.c \
+				core/sprites.c core/utils.c core/draw.c\
+				parsing/parsing1.c parsing/parsing2.c parsing/parsing3.c\
+				player/draw_player.c player/player_collision.c\
+				player/player_move.c
 
-# init.c hooks.c mlx_test.c
+# core/hooks.c
+# other/draw_wall.c other/draw_bg.c other/draw_coin.c
 
 SOURCES_DIR = ./sources/
 SOURCES = $(addprefix $(SOURCES_DIR), $(SOURCES_LIST))
@@ -37,28 +42,40 @@ RESET = \033[0m
 
 all: libft minilibx $(NAME)
 
+test: $(LIBFT) $(MINILIBX) clean
+	@$(CC) -g $(FRAMEWORKS) $(CFLAGS) $(HEADERS) test.c -o test $(INCLUDES)
+	./test
+
+debug: $(LIBFT) $(DEBUG_MLX) clean
+	@$(CC) -g $(FRAMEWORKS) $(CFLAGS) $(HEADERS) $(SOURCES) -o debug $(INCLUDES)
+	lldb ./debug ./maps/1.ber
+
 $(NAME): $(LIBFT) $(MINILIBX) clean
-	$(CC) $(FRAMEWORKS) $(CFLAGS) $(HEADERS) $(SOURCES) -o $(NAME) $(INCLUDES) 
+	@$(CC) $(FRAMEWORKS) $(CFLAGS) $(HEADERS) $(SOURCES) -o $(NAME) $(INCLUDES) 
 	@echo "$(NAME): $(GREEN)$(NAME) was created$(RESET)"
-	./$(NAME) maps/basictest.fdf
+	./$(NAME) ./maps/error.ber ./maps/1.ber
 
 %.o: %.c
 	@${CC} ${FLAGS}  -o $@ -c $< $(HEADERS)
 
-libft:
-	@make -C libft42/ all
+$(LIBFT):
+	@make -C libft/ all
 	
 minilibx:
 	@make -C MLX42/ all
 
+$(DEBUG_MLX):
+	@cmake  -s re DDEBUG=1 -C MLX42/ all
+
 clean:
 	
 	@rm -f $(NAME)
+	@rm -f debug
 	@rm -rf $(OBJECTS_DIR)
 	@echo "$(RED)Deleting all .o Files$(RESET)"
 	
 fclean:		clean
-	@make -C libft42/ clean
+	@make -C libft/ clean
 	@make -C MLX42/ clean
 	@rm -f $(MINILIBX)
 	@rm -f $(LIBFT)

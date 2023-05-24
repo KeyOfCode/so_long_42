@@ -6,12 +6,15 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:49:44 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/05 21:02:58 by darismen         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:57:27 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-
+#include "../../so_long.h"
+/**
+ * @brief Checks the allowed characters
+ * 
+ */
 int	allowed_char(t_game *game)
 {
 	int	i;
@@ -23,11 +26,9 @@ int	allowed_char(t_game *game)
 		j = 0;
 		while (game->map[i][j])
 		{
-			if (
-				!(game->map[i][j] == '1' || game->map[i][j] == '0'
+			if (!(game->map[i][j] == '1' || game->map[i][j] == '0'
 				|| game->map[i][j] == 'C' || game->map[i][j] == 'M'
 				|| game->map[i][j] == 'P' || game->map[i][j] == 'E'
-				|| game->map[i][j] == '*'
 				|| (j == game->gw - 1 && game->map[i][j] == '\n'))
 			)
 				return (0);
@@ -77,11 +78,11 @@ int	required_char(t_game *game)
 		j = 0;
 		while (game->map[i][j])
 		{
-			if (game->map[i][j] == "P")
+			if (game->map[i][j] == 'P')
 				check[0]++;
-			if (game->map[i][j] == "C")
+			if (game->map[i][j] == 'C')
 				check[1]++;
-			if (game->map[i][j] == "E")
+			if (game->map[i][j] == 'E')
 				check[2]++;
 			j++;
 		}

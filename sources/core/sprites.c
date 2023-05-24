@@ -6,11 +6,11 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:36:17 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/05 21:39:18 by darismen         ###   ########.fr       */
+/*   Updated: 2023/05/24 20:48:06 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "../../so_long.h"
 
 char	*path_to_sprite(char *sprite_name, int nb)
 {
@@ -34,21 +34,28 @@ char	*path_to_sprite(char *sprite_name, int nb)
 	return (str2);
 }
 
-void	load_sprite_type(int i, char *p, int sprite_type,
+/**
+ * @brief Loads a single sprite to the coressponding **img
+ * 
+ * @param p path name
+ * @param sprite_type sprite type with corresponding enum 
+ * @param game game pointer
+ */
+void	load_single_sprite_type(int i, char *p, int sprite_type,
 		t_game *game)
 {
 	if (sprite_type == PLAYER)
 		game->ps[i] = mlx_load_png(p);
 	else if (sprite_type == MONSTER)
-		game->ms[i] = mlx_load_png(p);
+		game->img[MONSTER] = mlx_texture_to_image(game->mlx, mlx_load_png(p));
 	else if (sprite_type == GATE)
 		game->gs[i] = mlx_load_png(p);
 	else if (sprite_type == COIN)
-		game->cs[i] = mlx_load_png(p);
+		game->img[COIN] = mlx_texture_to_image(game->mlx, mlx_load_png(p));
 	else if (sprite_type == OTHER)
 		game->os[i] = mlx_load_png(p);
-	if (!(game->ps[i] || game->ms[i] || game->gs[i]
-			|| game->cs[i] || game->os[i]))
+	if (!(game->ps[i] || game->img[MONSTER] || game->gs[i]
+			|| game->img[COIN] || game->os[i]))
 		ft_error(4);
 }
 
@@ -71,7 +78,7 @@ void	load_sprite(char *sprite_name, int nb_sprite,
 		if (fd < 0)
 			ft_error(4);
 		close(fd);
-		load_sprite_type(i - 1, path, sprite_type, game);
+		load_single_sprite_type(i - 1, path, sprite_type, game);
 		free(path);
 	}
 }
@@ -80,9 +87,8 @@ void	load_sprite(char *sprite_name, int nb_sprite,
 //sprites each type has.
 void	init_sprites(t_game *game)
 {
-	load_sprite("other", 7, OTHER, game);
-	load_sprite("player", 54, PLAYER, game);
-	load_sprite("enemy", 22, MONSTER, game);
-	load_sprite("gate", 4, GATE, game);
-	load_sprite("coin", 5, COIN, game);
+	load_sprite("other", 4, OTHER, game);
+	load_sprite("player", 4, PLAYER, game);
+	load_sprite("gate", 2, GATE, game);
+	load_sprite("coin", 1, COIN, game);
 }

@@ -28,7 +28,7 @@ char	*path_to_sprite(char *sprite_name, int nb)
 	return (str1);
 }
 
-int main(void)
+/* int main(void)
 {
 	char	*sprite = "test";
 	char	*str;
@@ -41,4 +41,41 @@ int main(void)
 		printf("%s\n", str);
 		i++;
 	}
+} */
+
+void my_keyhook(mlx_key_data_t keydata, void* param)
+{
+	param = NULL;
+
+	// If we PRESS the 'J' key, print "Hello".
+	if (keydata.key == MLX_KEY_J && keydata.action == MLX_PRESS)
+		printf("Hello ");
+
+	// If we RELEASE the 'K' key, print "World".
+	if (keydata.key == MLX_KEY_K && keydata.action == MLX_RELEASE)
+		printf("World");
+
+	// If we HOLD the 'L' key, print "!".
+	if (keydata.key == MLX_KEY_L
+		&& (keydata.action == MLX_REPEAT || keydata.action == MLX_PRESS))
+		printf("!");
+	
+	if (keydata.key == (MLX_KEY_ESCAPE))
+	{
+		printf("test ended succesfully\n");
+		exit(EXIT_SUCCESS);
+	}
+}
+
+int32_t	main(void)
+{
+	mlx_t* mlx;
+
+	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+		return (EXIT_FAILURE);
+
+	mlx_key_hook(mlx, &my_keyhook, NULL);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+	return (EXIT_SUCCESS);
 }

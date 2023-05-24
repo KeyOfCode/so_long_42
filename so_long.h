@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:03:03 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/05 22:28:08 by darismen         ###   ########.fr       */
+/*   Updated: 2023/05/24 20:38:10 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 # include "MLX42/include/MLX42/MLX42.h"
 # include "libft/includes/libft.h"
+# include "libft/includes/ft_printf.h"
 # include "libft/includes/get_next_line.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -24,117 +25,143 @@
 
 # define BUFFERSIZE 30
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1280
+# define HEIGHT 720
 # define PX_SIZE 16
 # define LIFE 16
 
-/*
-BPX : bloc px
-MPX : movement px
-GPX : ground px
-JPX : jump px
-HPX : hitbox px
-EHPX : extra hitbox
-*/
-# define BPX 100
+
+// BPX : bloc px Default is 64
+# define BPX 64
+// MPX : movement px
 # define MPX 8
+// GPX : ground px
 # define GPX 14
-# define DPX 20
+// JPX : jump px
 # define JPX 40
+// HPX : hitbox px
 # define HPX 15
+// EHPX : extra hitbox
 # define EHPX 25
+# define DPX 20
 
 /* -Structs- */
 
 /// @brief Structure for the player
 /**
-*@param pp : pixel position (pp[0] : x, pp[1] : y)
-*@param lpp : last pixel position (lpp[0] : x, lpp[1] : y)
-*@param a : top left		(a[0] : x, a[1] : y)
-*@param b : top right		(b[0] : x, b[1] : y)
-*@param c : bottom left 	(c[0] : x, c[1] : y)
-*@param d : bottom right 	(d[0] : x, d[1] : y)
-*@param js : jump state
-*@param ac : actions code
-*@param di : diagonal (1 : left, 2 : right)
-*@param tl : tick life
-*@param nl : life number
-*@param direction : (0 left, 1 right)
+ * @param pp : pixel position (pp[0] : x, pp[1] : y)
+ * @param lpp : last pixel position (lpp[0] : x, lpp[1] : y)
+ * @param win_pos : Position relative to the Window
+ * @param pos : position relative to the map.
+ * @param tl : top left		(a[0] : x, a[1] : y)
+ * @param tr : top right	(b[0] : x, b[1] : y)
+ * @param bl : bottom left 	(c[0] : x, c[1] : y)
+ * @param br : bottom right (d[0] : x, d[1] : y)
+ * @param ms : move state 	(0 : idle, 1 : moving)
+ * @param js : jump state
+ * @param ac : actions code
+ * @param di : diagonal (1 : left, 2 : right)
+ * @param lt : life ticks
+ * @param nl : life number
+ * @param direction : (0 left, 1 right)
 */
 typedef struct s_player
 {
-	int	pp[2];
-	int	lpp[2];
-	int	a[2];
-	int	b[2];
-	int	c[2];
-	int	d[2];
-	int	js;
-	int	ac[3];
-	int	di;
-	int	tl;
-	int	nl;
-	int	direction;
+	mlx_instance_t	*instance;
+	int				pp[2];
+	int				lpp[2];
+	int				win_pos[2];
+	int				pos[2];
+	int				tl[2];
+	int				tr[2];
+	int				bl[2];
+	int				br[2];
+	int				ms;
+	int				js;
+	int				ac[3];
+	int				di;
+	int				lt;
+	int				nl;
+	int				direction;
 }	t_player;
 
+typedef enum s_sprites
+{
+	SPRITES,
+	PLAYER = 1,
+	MONSTER,
+	GATE,
+	COIN,
+	OTHER,
+	IMG_COUNT
+}	t_sprites;
+
 /// @brief Struct that contains all the data of the game
-/**
-*@param mlx : mlx pointer
-*@param img : MLX42 img pointer
-*@param gw 	: game width
-*@param gh 	: game height
-*@param fd 	: file descriptor
-*@param map_fd 	: map file descriptor
-*@param lst_map : *linked list that contains datas map
-*@param map : **map (2D array)
-*@param dbg : Flag for debugging
-*@param ps 	: *player sprite
-*@param gs 	: *gate sprite
-*@param ms 	: *monster sprite
-*@param cs 	: *collectable sprite
-*@param os 	: *other sprite
-*@param lm 	: last millitimestamp
-*@param fps : frame per second
-*@param po 	: player offset
-*@param go 	: global offset
-*@param nc 	: number collectable
-*@param nm 	: number movements
-*@param player 	: *player struct
-*@param monster : *monster struct
+/*!
+ * @struct t_game
+ * @param mlx : mlx pointer
+ * @param img : MLX42 img ppointer, contains each sprite.
+ * @param gw 	: game width (number of horizontal tiles)
+ * @param gh 	: game height (number of vertical tiles)
+ * @param fd 	: file descriptor
+ * @param map_fd 	: map file descriptor
+ * @param lst_map : *linked list that contains datas map
+ * @param map : **map (2D array)
+ * @param dbg : Flag for debugging
+ * @param ps 	: *player sprite
+ * @param gs 	: *gate sprite
+ * @param ms 	: *monster sprite
+ * @param cs 	: *collectable sprite
+ * @param os 	: *other sprite
+ * @param lm 	: last millitimestamp
+ * @param fps : frame per second
+ * @param po 	: player offset
+ * @param go 	: global offset
+ * @param nc 	: number collectable
+ * @param nm 	: number movements
+ * @param player 	: *player struct
+ * @param monster : *monster struct
 */
 typedef struct s_game
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	int			gw;
-	int			gh;
-	int			fd;
-	int			map_fd;
-	t_list		*lst_map;
-	char		**map;
-	int			dbg;
-	void		*ps[54];
-	void		*gs[5];
-	void		*ms[22];
-	void		*cs[5];
-	void		*os[7];
-	long long	lm;
-	int			fps;
-	int			po[2];
-	int			go[2];
-	int			nc;
-	int			nm;
-	t_player	*player;
-	t_list		*monsters;
+	mlx_t				*mlx;
+	mlx_image_t			*img[IMG_COUNT];
+	int					gw;
+	int					gh;
+	int					fd;
+	int					map_fd;
+	t_list				*lst_map;
+	char				**map;
+	int					dbg;
+	mlx_texture_t		*ps[54];
+	mlx_texture_t		*gs[2];
+	mlx_texture_t		*ms[22];
+	mlx_texture_t		*cs[5];
+	mlx_texture_t		*os[7];
+	long long			lm;
+	int					fps;
+	int					po[2];
+	int					go[2];
+	int					nc;
+	int					nm;
+	t_player			*player;
+	t_list				*monsters;
 }	t_game;
 
 typedef enum move
 {
-	x,
-	y,
+	X,
+	Y,
 	xy
 }	t_move;
+
+typedef enum dirs
+{
+	DOWN,
+	RIGHT,
+	UP,
+	LEFT
+}	t_dirs;
 
 typedef struct coords
 {
@@ -145,35 +172,63 @@ typedef struct coords
 	int32_t	instance;
 }	t_coords;
 
-typedef enum s_sprites
-{
-	PLAYER = 1,
-	MONSTER,
-	GATE,
-	COIN,
-	OTHER
-}	t_sprites;
-
 typedef enum s_others
 {
 	bg1,
 	bg2,
-	wall,
+	wall1,
+	wall2
 }	t_others;
 
-void	hook(mlx_key_data_t keydata, void *param);
+void	hooks(mlx_key_data_t keydata, void *param);
 
 void	ft_error(int type);
 
 /* Init */
 
-void	init_s_so_long(char *argv[], t_game *game);
+void	init_game(char **argv, t_game *game);
 int		init_map(int argc, char *argv[], t_game *game);
 int		init_player(t_game *game);
-void	init_camera(t_game *game);
+void	init_sprites(t_game *game);
+int		find_player_pos(t_game *game);
 
 /* Draw */
 
-void	draw_block(int x, int y, void *sprite, t_game *game);
+void	draw_block(int x, int y, mlx_texture_t *sprite, t_game *game);
+void	erase_block(t_game *game, mlx_texture_t *sprite);
+void	draw_background(t_game *game);
+void	draw_player(t_game *game);
+int		change_player_dir(t_game *game, char dir);
+void	draw_other(t_game *game);
+
+/* Hooks */
+
+void	hook_register(t_game *game);
+void	exit_game(t_game *game);
+
+/* Parsing */
+
+int		open_map(char *relative_path, t_game *game);
+int		fill_lst(t_game *game);
+int		convert_lst(t_game *game);
+int		size_check(t_game *game);
+int		allowed_char(t_game *game);
+int		sides_is_wall(t_game *game);
+int		required_char(t_game *game);
+int		path_to_exit(t_game *game);
+
+/* Player */
+int		movement(t_game *game, int *pos, char dir);
+void	movecounter(t_game *game);
+int		collision(t_game *game, int pos[2], char dir);
+void	coin_collision(t_game *game, int pos[2]);
+void	gate_collision(t_game *game, int *pos);
+
+/* Utils */
+void	fps(t_game *game);
+void	print_map(char **map);
+void	print_collision(t_game *game, int *pos);
+void	resize_map(t_game *game);
+//long long	militimestamp(void);
 
 #endif
