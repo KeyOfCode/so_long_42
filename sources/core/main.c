@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:51:36 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/29 19:12:25 by darismen         ###   ########.fr       */
+/*   Updated: 2023/06/02 19:42:46 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_error(int type)
 {
+	if (type == 1)
+		ft_putendl_fd("Error \nIncorrect number of arguments!", 2);
 	if (type == 2)
 		ft_putendl_fd("Error \nUnable to open the map!", 2);
 	if (type == 3)

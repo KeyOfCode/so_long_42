@@ -48,7 +48,7 @@ exe:
 	@$(CC) $(FLAGS)  -o $@ -c $< -I $(INCLUDES)
 
 $(LIBFT):
-	make -C libft/ all
+	@make -C libft/ all
 
 $(MLX):
 	@make -C MLX42/ all
@@ -59,7 +59,7 @@ $(DEBUG_MLX):
 clean:
 	@rm -f $(NAME)
 	@rm -f debug
-	@find sources -name "*.o" -print -delete
+	@find sources -name "*.o" -delete
 	@echo "$(RED)Deleting all .o Files$(RESET)"
 	
 fclean:		clean

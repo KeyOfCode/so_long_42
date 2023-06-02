@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 19:00:57 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/24 21:30:20 by darismen         ###   ########.fr       */
+/*   Updated: 2023/06/02 19:42:21 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	init_game(char **argv, t_game *game)
 
 int	init_map(int argc, char *argv[], t_game *game)
 {
-	argc = argc + 1 - 1;
+	if (argc != 2)
+		ft_error(1);
 	if (!open_map(argv[1], game))
 		ft_error(2);
 	if (!fill_lst(game))
