@@ -81,7 +81,7 @@ test: $(LIBFT) $(OBJECTS)
 	./test
 
 debug: $(LIBFT) $(DEBUG_MLX) $(OBJECTS) 
-	@$(CC) -g $(FRAMEWORKS) $(CFLAGS) $(OBJECTS) $(HEADERS) $(SOURCES) -o debug $(INCLUDES)
+	@$(CC) -g $(FRAMEWORKS) $(CFLAGS) $(HEADERS) $(OBJECTS) $(INCLUDES) -o debug
 	lldb ./debug ./maps/1.ber
 
 ############################

@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 11:57:45 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/24 20:31:24 by darismen         ###   ########.fr       */
+/*   Updated: 2023/06/02 20:34:46 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,4 @@ void	print_map(char **map)
 		printf("%s", map[i++]);
 	}
 	printf("\n");
-}
-
-void	print_collision(t_game *game, int *pos)
-{
-	printf("  %c\n", game->map[pos[Y] - 1][pos[X]]);
-	printf("%c P  %c\n", game->map[pos[Y]][pos[X] - 1],
-		game->map[pos[Y]][pos[X] + 1]);
-	printf("  %c\n", game->map[pos[Y] + 1][pos[X]]);
 }

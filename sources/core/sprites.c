@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:36:17 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/24 20:48:06 by darismen         ###   ########.fr       */
+/*   Updated: 2023/06/03 14:02:15 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,20 @@ char	*path_to_sprite(char *sprite_name, int nb)
 void	load_single_sprite_type(int i, char *p, int sprite_type,
 		t_game *game)
 {
+	mlx_texture_t	*texture;
+
+	texture = mlx_load_png(p);
 	if (sprite_type == PLAYER)
 		game->ps[i] = mlx_load_png(p);
-	else if (sprite_type == MONSTER)
-		game->img[MONSTER] = mlx_texture_to_image(game->mlx, mlx_load_png(p));
 	else if (sprite_type == GATE)
 		game->gs[i] = mlx_load_png(p);
 	else if (sprite_type == COIN)
-		game->img[COIN] = mlx_texture_to_image(game->mlx, mlx_load_png(p));
+		game->img[COIN] = mlx_texture_to_image(game->mlx, texture);
 	else if (sprite_type == OTHER)
 		game->os[i] = mlx_load_png(p);
-	if (!(game->ps[i] || game->img[MONSTER] || game->gs[i]
-			|| game->img[COIN] || game->os[i]))
+	if (!(game->ps[i] || game->gs[i] || game->img[COIN] || game->os[i]))
 		ft_error(4);
+	mlx_delete_texture(texture);
 }
 
 /**

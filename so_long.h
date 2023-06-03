@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:03:03 by darismen          #+#    #+#             */
-/*   Updated: 2023/05/24 21:52:25 by darismen         ###   ########.fr       */
+/*   Updated: 2023/06/03 13:57:19 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,15 @@
 
 /// @brief Structure for the player
 /**
- * @param pp : pixel position (pp[0] : x, pp[1] : y)
- * @param lpp : last pixel position (lpp[0] : x, lpp[1] : y)
- * @param win_pos : Position relative to the Window
  * @param pos : position relative to the map.
- * @param tl : top left		(a[0] : x, a[1] : y)
- * @param tr : top right	(b[0] : x, b[1] : y)
- * @param bl : bottom left 	(c[0] : x, c[1] : y)
- * @param br : bottom right (d[0] : x, d[1] : y)
- * @param ms : move state 	(0 : idle, 1 : moving)
- * @param js : jump state
- * @param ac : actions code
- * @param di : diagonal (1 : left, 2 : right)
- * @param lt : life ticks
- * @param nl : life number
  * @param direction : (0 left, 1 right)
 */
 typedef struct s_player
+{
+	int				pos[2];
+}	t_player;
+
+/* typedef struct s_player
 {
 	mlx_instance_t	*instance;
 	int				pp[2];
@@ -69,13 +61,12 @@ typedef struct s_player
 	int				lt;
 	int				nl;
 	int				direction;
-}	t_player;
+}	t_player; */
 
 typedef enum s_sprites
 {
 	SPRITES,
 	PLAYER = 1,
-	MONSTER,
 	GATE,
 	COIN,
 	OTHER,
@@ -93,22 +84,34 @@ typedef enum s_sprites
  * @param map_fd 	: map file descriptor
  * @param lst_map : *linked list that contains datas map
  * @param map : **map (2D array)
- * @param dbg : Flag for debugging
  * @param ps 	: *player sprite
  * @param gs 	: *gate sprite
  * @param ms 	: *monster sprite
  * @param cs 	: *collectable sprite
  * @param os 	: *other sprite
- * @param lm 	: last millitimestamp
- * @param fps : frame per second
- * @param po 	: player offset
- * @param go 	: global offset
  * @param nc 	: number collectable
  * @param nm 	: number movements
  * @param player 	: *player struct
- * @param monster : *monster struct
 */
 typedef struct s_game
+{
+	mlx_t				*mlx;
+	mlx_image_t			*img[IMG_COUNT];
+	int					gw;
+	int					gh;
+	int					fd;
+	int					map_fd;
+	t_list				*lst_map;
+	char				**map;
+	mlx_texture_t		*ps[4];
+	mlx_texture_t		*gs[2];
+	mlx_texture_t		*os[4];
+	int					nc;
+	int					nm;
+	t_player			*player;
+}	t_game;
+
+/* typedef struct s_game
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img[IMG_COUNT];
@@ -133,7 +136,7 @@ typedef struct s_game
 	t_player			*player;
 	t_list				*monsters;
 }	t_game;
-
+ */
 typedef enum move
 {
 	X,
@@ -148,15 +151,6 @@ typedef enum dirs
 	UP,
 	LEFT
 }	t_dirs;
-
-typedef struct coords
-{
-	size_t	x_start;
-	size_t	x_end;
-	size_t	y_start;
-	size_t	y_end;
-	int32_t	instance;
-}	t_coords;
 
 typedef enum s_others
 {

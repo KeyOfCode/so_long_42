@@ -6,11 +6,16 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:51:36 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/02 19:42:46 by darismen         ###   ########.fr       */
+/*   Updated: 2023/06/03 13:51:34 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long.h"
+
+void leaks()
+{
+	system("leaks -q so_long");
+}
 
 void	ft_error(int type)
 {
@@ -43,6 +48,7 @@ int	main(int argc, char **argv)
 {
 	t_game	*game;
 
+	atexit(leaks);
 	game = (t_game *)malloc(sizeof(t_game));
 	init_game(argv, game);
 	init_map(argc, argv, game);
@@ -53,7 +59,7 @@ int	main(int argc, char **argv)
 	draw_other(game);
 	draw_player(game);
 	hook_register(game);
-	mlx_loop_hook(game->mlx, &game_loop, game);
+	mlx_loop_hook(game->mlx, game_loop, game);
 	mlx_loop(game->mlx);
 	exit(EXIT_SUCCESS);
 }
