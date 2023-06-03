@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:03:03 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/03 13:57:19 by darismen         ###   ########.fr       */
+/*   Updated: 2023/06/03 14:12:06 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,9 +206,9 @@ void	gate_collision(t_game *game, int *pos);
 
 /* Utils */
 void	fps(t_game *game);
-void	print_map(char **map);
-void	print_collision(t_game *game, int *pos);
 void	resize_map(t_game *game);
+int		ft_2darr_len(void **arr);
+void	ft_2darrfree(void **arr);
 //long long	militimestamp(void);
 
 #endif

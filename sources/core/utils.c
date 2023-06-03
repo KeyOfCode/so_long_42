@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 11:57:45 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/02 20:34:46 by darismen         ###   ########.fr       */
+/*   Updated: 2023/06/03 14:11:37 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,26 @@ void	resize_map(t_game *game)
 		mlx_set_window_size(game->mlx, (game->gw - 1) * BPX, game->gh * BPX);
 }
 
-void	print_map(char **map)
+int	ft_2darr_len(void **arr)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (map[i])
-	{
-		printf("%s", map[i++]);
-	}
-	printf("\n");
+	if (arr)
+		while (arr[i])
+		i++;
+	return (i);
+}
+
+void	ft_2darrfree(void **arr)
+{
+	int	len;
+	int	i;
+
+	len = ft_2darr_len((void **)arr);
+	i = 0;
+	while (i < len)
+		free(arr[i++]);
+	if (arr)
+		free(arr);
 }
