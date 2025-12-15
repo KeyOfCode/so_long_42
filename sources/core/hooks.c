@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:56:54 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/03 14:13:19 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/15 10:20:09 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exit_game(t_game *game)
 	ft_lstclear(&game->lst_map, free);
 	free(game->player);
 	free(game);
-	ft_printf("\nGame Ended succesfully\n");
+	ft_printf_fd(1, "\nGame Ended succesfully\n");
 	exit(EXIT_SUCCESS);
 }
 

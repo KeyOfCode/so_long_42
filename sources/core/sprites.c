@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:36:17 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/03 14:02:15 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:30:31 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	load_single_sprite_type(int i, char *p, int sprite_type,
 	else if (sprite_type == OTHER)
 		game->os[i] = mlx_load_png(p);
 	if (!(game->ps[i] || game->gs[i] || game->img[COIN] || game->os[i]))
-		ft_error(4);
+		ft_error_sl(4);
 	mlx_delete_texture(texture);
 }
 
@@ -77,7 +77,7 @@ void	load_sprite(char *sprite_name, int nb_sprite,
 		path = path_to_sprite(sprite_name, i - 1);
 		fd = open(path, O_RDONLY);
 		if (fd < 0)
-			ft_error(4);
+			ft_error_sl(4);
 		close(fd);
 		load_single_sprite_type(i - 1, path, sprite_type, game);
 		free(path);

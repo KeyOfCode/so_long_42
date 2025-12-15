@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_move.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:03:43 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/02 20:47:14 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:31:49 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	movement(t_game *game, int *pos, char dir)
 {
 	if (!change_player_dir(game, dir))
-		ft_error(4);
+		ft_error_sl(4);
 	if (!collision(game, pos, dir))
 	{
 		if (dir == 'D')
@@ -35,5 +35,5 @@ int	movement(t_game *game, int *pos, char dir)
 void	movecounter(t_game *game)
 {
 	game->nm++;
-	ft_printf("movement: %d\n", game->nm);
+	ft_printf_fd(1, "movement: %d\n", game->nm);
 }

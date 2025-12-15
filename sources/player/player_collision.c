@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_collision.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:09:27 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/03 13:13:24 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/17 10:49:33 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,13 @@
 int	wall_collision(t_game *game, int *pos, char dir)
 {
 	if (dir == 'S' && !(game->map[pos[Y] + 1][pos[X]] == '1'))
-	{
-		pos[Y]++;
-		return (0);
-	}
+		return (pos[Y]++, 0);
 	if (dir == 'W' && !(game->map[pos[Y] - 1][pos[X]] == '1'))
-	{
-		pos[Y]--;
-		return (0);
-	}
+		return (pos[Y]--, 0);
 	if (dir == 'D' && !(game->map[pos[Y]][pos[X] + 1] == '1'))
-	{
-		pos[X]++;
-		return (0);
-	}
+		return (pos[X]++, 0);
 	if (dir == 'A' && !(game->map[pos[Y]][pos[X] - 1] == '1'))
-	{
-		pos[X]--;
-		return (0);
-	}
+		return (pos[X]--, 0);
 	return (1);
 }
 

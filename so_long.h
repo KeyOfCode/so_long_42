@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:03:03 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/03 14:12:06 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:31:08 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef struct s_game
 	t_list				*monsters;
 }	t_game;
  */
+
 typedef enum move
 {
 	X,
@@ -162,11 +163,11 @@ typedef enum s_others
 
 void	hooks(mlx_key_data_t keydata, void *param);
 
-void	ft_error(int type);
+void	ft_error_sl(int type);
 
 /* Init */
 
-void	init_game(char **argv, t_game *game);
+void	init_game(t_game *game);
 int		init_map(int argc, char *argv[], t_game *game);
 int		init_player(t_game *game);
 void	init_sprites(t_game *game);

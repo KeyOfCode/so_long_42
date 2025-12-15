@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:51:36 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/03 14:15:15 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:31:22 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 	system("leaks -q so_long");
 } */
 
-void	ft_error(int type)
+void	ft_error_sl(int type)
 {
 	if (type == 1)
 		ft_putendl_fd("Error \nIncorrect number of arguments!", 2);
@@ -49,7 +49,7 @@ int	main(int argc, char **argv)
 	t_game	*game;
 
 	game = (t_game *)malloc(sizeof(t_game));
-	init_game(argv, game);
+	init_game(game);
 	init_map(argc, argv, game);
 	resize_map(game);
 	init_sprites(game);

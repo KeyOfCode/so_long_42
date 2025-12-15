@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 19:00:57 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/02 22:02:10 by darismen         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:30:59 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../so_long.h"
 
 // Initialization of the t_game structure
-void	init_game(char **argv, t_game *game)
+void	init_game(t_game *game)
 {
 	game->mlx = mlx_init(WIDTH, HEIGHT, "so_long", true);
 	if (!game->mlx)
-		ft_error(5);
+		ft_error_sl(5);
 	game->gw = -1;
 	game->gh = -1;
 	game->player = ft_calloc(sizeof(t_player), 1);
@@ -31,23 +31,23 @@ void	init_game(char **argv, t_game *game)
 int	init_map(int argc, char *argv[], t_game *game)
 {
 	if (argc != 2)
-		ft_error(1);
+		ft_error_sl(1);
 	if (!open_map(argv[1], game))
-		ft_error(2);
+		ft_error_sl(2);
 	if (!fill_lst(game))
-		ft_error(3);
+		ft_error_sl(3);
 	if (!convert_lst(game))
-		ft_error(3);
+		ft_error_sl(3);
 	if (!size_check(game))
-		ft_error(3);
+		ft_error_sl(3);
 	if (!allowed_char(game))
-		ft_error(3);
+		ft_error_sl(3);
 	if (!sides_is_wall(game))
-		ft_error(3);
+		ft_error_sl(3);
 	if (!required_char(game))
-		ft_error(3);
+		ft_error_sl(3);
 	if (!path_to_exit(game))
-		ft_error(3);
+		ft_error_sl(3);
 	return (1);
 }
 
