@@ -79,10 +79,10 @@ A valid map must:
 
 | Key | Action |
 |---|---|
-| `W` / `↑` | Move up |
-| `A` / `←` | Move left |
-| `S` / `↓` | Move down |
-| `D` / `→` | Move right |
+| `W` | Move up |
+| `A` | Move left |
+| `S` | Move down |
+| `D` | Move right |
 | `ESC` | Exit the game |
 
 The game can also be closed using the window close button.
