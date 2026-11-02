@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:51:36 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 16:31:22 by darismen         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:11:28 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 {
 	t_game	*game;
 
-	game = (t_game *)malloc(sizeof(t_game));
+	game = ft_calloc(1, sizeof(t_game));
 	init_game(game);
 	init_map(argc, argv, game);
 	resize_map(game);

@@ -97,7 +97,7 @@ make re     # Recompile the project
 ```
 
 ## Resources
-No AI was used in the creatin of this project.
+AI was used for the purpose of debugging and maintaining code.
 
 * [MLX42] (https://github.com/codam-coding-college/MLX42)
 * [Libft] (https://github.com/KeyOfCode/Libft42)

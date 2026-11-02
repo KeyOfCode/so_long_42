@@ -10,7 +10,7 @@ HEADERS	:= -I./include/ -I $(LIBMLX)/include
 LIBMLX  := ./MLX42
 MLX		:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 LIBFT 	= 	libft/libft.a
-FT		:= ./libft/libft.a -Llibft/ -lft
+FT		:= ./libft/libft.a -Llibft/
 
 CACHE_DIR := ./cache
 
@@ -30,7 +30,7 @@ SRCS		= $(addprefix $(SRC_DIR)/, $(SRCS_LIST))
 OBJS 	:= $(SRCS:.c=.o)
 
 .c.o:
-	${CC} ${FLAGS} ${HEADERS} -c $< -o ${<:.c=.o}
+	$(CC) $(FLAGS) $(HEADERS) -c $< -o $(<:.c=.o)
 
 TEST_TRGT	= maps/1.ber
 
@@ -38,14 +38,11 @@ TEST_TRGT	= maps/1.ber
 #                                  Makefile  objs                              #
 ################################################################################
 
-$(NAME):	$(OBJS) $(LIBFT) $(MLX_LIB)
+$(NAME):	$(OBJS) $(LIBFT) $(MLX)
 	@echo "$(GREEN)Compilation $(CLR_RMV)of $(YELLOW)$(NAME) $(CLR_RMV)..."
 	@mkdir -p $(CACHE_DIR)/mesa_shader_cache
 	@$(CC) $(HEADERS) $(FLAGS) -o $(NAME) $(OBJS) $(FT) $(MLX) 
 	@echo "$(GREEN)$(NAME) created $(CLR_RMV)✔️"
-
-# $(MLX_FLAGS):
-# 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(MLX):
 	cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
@@ -58,13 +55,15 @@ all:		$(NAME)
 bonus:		all
 
 clean:
-			@ $(RM) *.o */*.o */*/*.o
-			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
-			@ rm -rf $(CACHE_DIR)
+	@ $(RM) *.o */*.o */*/*.o
+	@ rm -rf $(CACHE_DIR)
+	@ rm -rf $(LIBMLX)/build
+	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
 
 fclean:		clean
-			@ $(RM) $(NAME)
-			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
+	@ $(RM) $(NAME)
+	@make -C libft fclean
+	@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
 
 re:			fclean all
 

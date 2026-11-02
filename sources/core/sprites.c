@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:36:17 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 16:30:31 by darismen         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:16:14 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,19 @@ void	load_single_sprite_type(int i, char *p, int sprite_type,
 	mlx_texture_t	*texture;
 
 	texture = mlx_load_png(p);
-	if (sprite_type == PLAYER)
-		game->ps[i] = mlx_load_png(p);
-	else if (sprite_type == GATE)
-		game->gs[i] = mlx_load_png(p);
-	else if (sprite_type == COIN)
-		game->img[COIN] = mlx_texture_to_image(game->mlx, texture);
-	else if (sprite_type == OTHER)
-		game->os[i] = mlx_load_png(p);
-	if (!(game->ps[i] || game->gs[i] || game->img[COIN] || game->os[i]))
+	if (!texture)
 		ft_error_sl(4);
-	mlx_delete_texture(texture);
+	if (sprite_type == PLAYER)
+		game->ps[i] = texture;
+	else if (sprite_type == GATE)
+		game->gs[i] = texture;
+	else if (sprite_type == OTHER)
+		game->os[i] = texture;
+	else if (sprite_type == COIN)
+	{
+		game->img[COIN] = mlx_texture_to_image(game->mlx, texture);
+		mlx_delete_texture(texture);
+	}
 }
 
 /**

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 11:57:45 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/03 14:11:37 by darismen         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:39:17 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,9 @@ void	ft_2darrfree(void **arr)
 		free(arr[i++]);
 	if (arr)
 		free(arr);
+}
+
+int	is_fillable(char c)
+{
+	return (c != '1' && c != 'y' && c != '\n' && c != '\0');
 }

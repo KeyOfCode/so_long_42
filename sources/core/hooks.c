@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 20:56:54 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/15 10:20:09 by darismen         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:31:13 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,16 @@ void	ft_free_textures(t_game *game)
 	i = 0;
 	while (i < 2)
 		mlx_delete_texture(game->gs[i++]);
-	i = 0;
-	if (game->nc != 0)
-		mlx_delete_image(game->mlx, game->img[COIN]);
-	while (i < IMG_COUNT)
-		if (game->img[i])
-			mlx_delete_image(game->mlx, game->img[i++]);
+	// i = 0;
+	// while (i < IMG_COUNT)
+	// {
+	// 	if (game->img[i])
+	// 		mlx_delete_image(game->mlx, game->img[i]);
+	// 	i++;
+	// }
 }
-
+/* 	if (game->nc != 0)
+		mlx_delete_image(game->mlx, game->img[COIN]); */
 
 void	exit_game(t_game *game)
 {

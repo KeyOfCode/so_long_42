@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 22:09:27 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/17 10:49:33 by darismen         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:23:22 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,18 @@ void	coin_collision(t_game *game, int pos[2])
 
 void	gate_collision(t_game *game, int *pos)
 {
-	int	x;
-	int	y;
+	int			x;
+	int			y;
+	static int	is_open;
 
 	x = game->img[GATE]->instances->x;
 	y = game->img[GATE]->instances->y;
-	if (game->nc == 0)
+	if (game->nc == 0 && !is_open)
+	{
 		draw_block(x, y, game->gs[1], game);
-	if (game->map[pos[Y]][pos[X]] == 'E'
-		&& game->nc == 0)
+		is_open = 1;
+	}
+	if (game->map[pos[Y]][pos[X]] == 'E' && game->nc == 0)
 		exit_game(game);
 }
 

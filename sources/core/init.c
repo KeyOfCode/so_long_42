@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/28 19:00:57 by darismen          #+#    #+#             */
-/*   Updated: 2026/11/02 14:22:21 by darismen         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:45:10 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	init_map(int argc, char *argv[], t_game *game)
 
 	if (!fill_lst(game))
 		ft_error_sl(3);
-	printf("Check");
 	if (!convert_lst(game))
 		ft_error_sl(3);
 	if (!size_check(game))

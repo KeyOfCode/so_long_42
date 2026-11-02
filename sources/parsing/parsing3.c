@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: darismen <darismen@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 22:19:18 by darismen          #+#    #+#             */
-/*   Updated: 2023/06/02 20:46:54 by darismen         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:42:11 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	ft_map_free(char **map)
 	free(map);
 }
 
+
+
 /**
  * @brief	Recursively fills the map with 'y' in each direction 
  * 			starting from the player.
@@ -69,13 +71,13 @@ void	ft_map_free(char **map)
 void	ft_fill(char **map, int pos_y, int pos_x)
 {
 	map[pos_y][pos_x] = 'y';
-	if (map[pos_y - 1][pos_x] != '1' && map[pos_y - 1][pos_x] != 'y')
+	if (is_fillable(map[pos_y - 1][pos_x]))
 		ft_fill(map, pos_y - 1, pos_x);
-	if (map[pos_y + 1][pos_x] != '1' && map[pos_y + 1][pos_x] != 'y')
+	if (is_fillable(map[pos_y + 1][pos_x]))
 		ft_fill(map, pos_y + 1, pos_x);
-	if (map[pos_y][pos_x + 1] != '1' && map[pos_y][pos_x + 1] != 'y')
+	if (is_fillable(map[pos_y][pos_x + 1]))
 		ft_fill(map, pos_y, pos_x + 1);
-	if (map[pos_y][pos_x - 1] != '1' && map[pos_y][pos_x - 1] != 'y')
+	if (is_fillable(map[pos_y][pos_x - 1]))
 		ft_fill(map, pos_y, pos_x - 1);
 }
 

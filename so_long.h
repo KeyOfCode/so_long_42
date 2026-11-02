@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:03:03 by darismen          #+#    #+#             */
-/*   Updated: 2026/11/02 14:19:29 by darismen         ###   ########.fr       */
+/*   Updated: 2026/11/02 15:39:08 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ void	fps(t_game *game);
 void	resize_map(t_game *game);
 int		ft_2darr_len(void **arr);
 void	ft_2darrfree(void **arr);
+int		is_fillable(char c);
 //long long	militimestamp(void);
 
 #endif
