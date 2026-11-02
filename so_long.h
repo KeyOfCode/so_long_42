@@ -6,7 +6,7 @@
 /*   By: darismen <darismen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 22:03:03 by darismen          #+#    #+#             */
-/*   Updated: 2024/07/22 16:31:08 by darismen         ###   ########.fr       */
+/*   Updated: 2026/11/02 14:19:29 by darismen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define SO_LONG_H
 # include "MLX42/include/MLX42/MLX42.h"
 # include "libft/includes/libft.h"
-# include "libft/includes/ft_printf.h"
-# include "libft/includes/get_next_line.h"
+// # include "libft/includes/ft_printf.h"
+// # include "libft/includes/get_next_line.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <stdlib.h>
